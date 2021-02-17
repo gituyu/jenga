@@ -18,13 +18,13 @@ class JengaServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . 'config/jenga.php' => config_path('jenga.php'),
+            __DIR__ . '/config/jenga.php' => config_path('jenga.php'),
         ]);
 
         //Register Jenga helper
 
-        if (File::exists(__DIR__ . '\app\helpers.php')) {
-            require __DIR__ . '\app\helpers.php';
+        if (file_exists($file = app_path('app/helpers.php'))) {
+            require __DIR__ . 'app\helpers.php';
         }
     }
 
@@ -36,7 +36,7 @@ class JengaServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__ . 'config/jenga.php', 'jenga'
+            __DIR__ . '/config/jenga.php', 'jenga'
         );
 
         $this->app->singleton(Jenga::class, function () {
