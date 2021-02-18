@@ -14,8 +14,6 @@ jengaCheckout($amount, $orderReference, $callbackurl, $custName = 'Client', $tit
 As used in example below,the output is a HTML string which should be injected on the checkout page. The visible part is a Payment Button that redirect to EazzyPayment Checkout Portal.After the client completes payment they are redirected back and a callback is triggered on payment update.
 
 ``
-php
-
 $payment_button= \App\Helpers\jengaCheckout(22,'dff','https://webhook.site/0a75a3f0-b545-4ce3-8c1f-926e7bded3df','John Doe','Pay now',true);
 ``
 
