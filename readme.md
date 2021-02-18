@@ -29,14 +29,14 @@ At your project root, create a .env file set these configs:
 `JENGA_BASE_ENDPOINT=https://uat.jengahq.io`<br>
 
 
-**NB: The package is autodiscovered by laravel:** For Laravel older version (less than 5.5) users, open the Config/App.php file and add `\Finserve\Jenga\JengaServiceProvider::class` under providers
+**NB: The package is autodiscovered by laravel:** For Laravel older version (less than 5.5) users.
+open the Config/App.php file and add `\Finserve\Jenga\JengaServiceProvider::class` under providers
 and ` 'Jenga'=> \Finserve\Jenga\JengaServiceProvider::class` under aliases.
 
 **Forex**<br>
 It supports optional paramenters. Supported service are:
-1. [currencyconverterapi.com ](www.currencyconverterapi.com).
-
-⋅⋅⋅API (https://free.currconv.com/api/) Limits to 100Req/min updates are quotes upto 45min.
+[currencyconverterapi.com ](www.currencyconverterapi.com).
+API (https://free.currconv.com/api/) Limits to 100Req/min updates are quotes upto 45min.
 
 ``
 getForex($baseCurrency = 'KES', $foreignCurrency = 'USD', $exchangeService = '1', $apiKey = '')
