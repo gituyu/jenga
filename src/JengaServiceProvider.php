@@ -18,8 +18,8 @@ class JengaServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/config/jenga.php' => config_path('jenga.php'),
-        ]);
+            __DIR__ . '/config/jenga.php' => config_path('jenga.php')
+        ],'jenga-config');
 
         //Register Jenga helper
 
