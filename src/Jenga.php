@@ -22,10 +22,14 @@ class Jenga
      * @param string $private_key
      */
 
-    public function __construct($username, $password, $api_key, $is_sandbox = false, $private_key = 'privatekey.pem')
+    public function __construct($username = null, $password = null, $api_key = null, $is_sandbox = false, $private_key = 'privatekey.pem')
     {
 
         if (function_exists('config')) {
+            $environment = config('jenga.JENGA_ENVIRONMENT');
+            if (!isset($environment)||$is_sandbox==false) {
+                $this->is_sandbox = $environment;
+            }
             if (!isset($username)) {
                 $username = config('jenga.JENGA_USERNAME');
             }
@@ -56,20 +60,25 @@ class Jenga
             if (!isset($this->merchantName)) {
                 $this->merchantName = config('jenga.JENGA_MERCHANT_NAME');
             }
+            if (!isset($this->merchantCode)) {
+                $this->merchantCode = config('jenga.JENGA_MERCHANT_CODE');
+            }
 //        $this->phone = config('jenga.JENGA_PHONE');
 //        $this->endpoint = config('JENGA_BASE_ENDPOINT');
 //        $this->website = config('JENGA_MERCHANT_WEBSITE');
 //        $this->logo = config('JENGA_CHECKOUT_LOGO_URL');
 //        $this->country_code = config('JENGA_COUNTRY_CODE');
+        } else {
+
+            $this->is_sandbox = $is_sandbox;
+            $this->username = $username;
+            $this->password = $password;
+            $this->api_key = $api_key;
+            $this->merchantCode = $username;
+            $this->basic = $api_key;
+            $this->private_key = $private_key;
         }
-        $this->is_sandbox = $is_sandbox;
         $this->token = $this->generateAccessToken() ?? '';
-        $this->username = $username;
-        $this->password = $password;
-        $this->api_key = $api_key;
-        $this->merchantCode = $username;
-        $this->basic = $api_key;
-        $this->private_key = $private_key;
         $this->phone = '00';
         $this->endpoint = 'https://api.equitybankgroup.com/identity-sandbox/';
         $this->account_id = $username;
@@ -182,7 +191,7 @@ class Jenga
             return $err;
         }
         $result_json = json_decode($result, true);
-        if (isset($result_json['notification-secret'])&&isset($result_json['payment-token'])) {
+        if (isset($result_json['notification-secret']) && isset($result_json['payment-token'])) {
 
             if ($isNotificationSecret == true) {
                 return $result_json['notification-secret'];
