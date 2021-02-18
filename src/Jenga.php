@@ -130,9 +130,9 @@ class Jenga
             echo "cURL Error #:" . $err;
             return $err;
         }
-        $access_token = json_decode($result)->access_token;
-        if (isset($access_token)) {
-            return $access_token;
+        $access_token = json_decode($result);
+        if (isset($access_token->access_token)) {
+            return $access_token->access_token;
         }
         return $result;
     }
@@ -182,7 +182,7 @@ class Jenga
             return $err;
         }
         $result_json = json_decode($result, true);
-        if (isset($result_json)) {
+        if (isset($result_json['notification-secret'])&&isset($result_json['payment-token'])) {
 
             if ($isNotificationSecret == true) {
                 return $result_json['notification-secret'];
